@@ -1,5 +1,16 @@
 # Adafruit nRF52 Bootloader with Enhanced OTA DFU
 
+## Changes in OTAFIX 2.2
+
+- **Use maximum TX power for BLE**  
+  Changed BLE TX power to be set to +8 for nRF52840.
+
+- **New boards**  
+  Elecrow ThinkNode M1, M3, M6  
+  LilyGo T-Echo  
+  Minewsemi MX25LE01  
+  Seeed SenseCAP Solar Node P1
+
 ## Changes in OTAFIX 2.1
 
 - **Defaults to OTA DFU mode**  
@@ -22,29 +33,39 @@
 
 - **Unique BLE advertising names per board**  
   In OTA DFU mode, devices advertise using a board-specific name instead of the generic `AdaDFU`:
+  - **Elecrow ThinkNode M1** → `TNM1_DFU`
+  - **Elecrow ThinkNode M3** → `TNM3_DFU`
+  - **Elecrow ThinkNode M6** → `TNM6_DFU`
   - **Heltec T114** → `T114_DFU`
+  - **LILYGO T-Echo** → `LGTE_DFU`
+  - **Minewsemi MX25LE01** → `MX25_DFU`
   - **ProMicro NRF52840** → `PROM_DFU`
-  - **T1000e** → `T1KE_DFU`
-  - **WioTracker L1** → `WTL1_DFU`
   - **RAK 4631** → `4631_DFU`
   - **RAK WisMesh Tag** → `RTAG_DFU`
+  - **Seeed SenseCAP Solar Node P1** → `SCAP_DFU`
+  - **Seeed T1000e** → `T1KE_DFU`
+  - **Seeed WioTracker L1** → `WTL1_DFU`
   - **XIAO NRF52 BLE / SENSE** → `XIAO_DFU`
 
 ---
 
 ## Boards supported
-
+- Elecrow ThinkNode M1
+- Elecrow ThinkNode M3
+- Elecrow ThinkNode M6
 - Heltec Automation Mesh Node T114 / HT-nRF5262
+- LilyGO T-Echo
+- Minewsemi MX25LE01
 - Nologo ProMicro NRF52840 (aka SuperMini NRF52840)
-- Seeed Studio SenseCAP Card Tracker T1000-E
-- Seeed Studio Wio Tracker L1
-- Seeed Studio XIAO nRF52840 BLE (and Seeed SenseCAP Solar Node)
-- Seeed Studio XIAO nRF52840 BLE SENSE
 - RAK 4631 ([See note](#notes-on-RAK4631-bootloader))
-- RAK WisMesh Tag (new 28/11/2025)
+- RAK WisMesh Tag
+- Seeed Studio SenseCAP Card Tracker T1000-E
+- Seeed SenseCAP Solar Node P1
+- Seeed Studio Wio Tracker L1
+- Seeed Studio XIAO nRF52840 BLE ([See note](#notes-on-xiao-nrf52840-ble)
+- Seeed Studio XIAO nRF52840 BLE SENSE
 
-Any board already supported by the Adafruit nRF52 bootloader can be added.  
-If there is another nRF52840-based board you are interested in, please raise an issue.
+If there is another nRF52840-based board you would like to see supported please raise a github issue and we can make it happen.
 
 ---
 
@@ -65,7 +86,7 @@ If you have somehow managed to accidentally flash an incorrect bootloader to you
 
 If the device does not show up on your computer after flashing the bootloader or performing an OTA update, it may be **waiting in OTA DFU mode**.
 
-In **OTAFIX 2.0**, OTA DFU is the default state when no valid application is present.  
+In **OTAFIX 2.0** and above, OTA DFU is the default state when no valid application is present.  
 In this mode:
 - No UF2 drive is exposed
 - No serial port is available
@@ -150,6 +171,18 @@ Although it's not necessary, if you find this useful please consider donating to
 [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/oltaco)
 
 ---
+
+## Notes on Xiao NRF52840 BLE
+
+Many of these boards are shipped with the Sense version of the bootloader installed. If your board has the Sense version installed you must use the Sense version when updating via UF2.
+
+You can look at the INFO_UF2.TXT file on the UF2 drive to check what version is currently installed.
+
+To check:
+1. Enter UF2 DFU mode (double-press reset) 
+2. Open the `INFO_UF2.TXT` file on the mounted drive  
+
+If the file shows: "Board-ID: nRF52840-SeeedXiaoSense-v1" then you must install the ***SENSE*** variant if updating via UF2 file.
 
 ## Notes on RAK4631 bootloader
 
