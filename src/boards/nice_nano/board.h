@@ -25,6 +25,8 @@
 #ifndef _NICENANO_H
 #define _NICENANO_H
 
+#define _PINNUM(port, pin)    ((port)*32 + (pin))
+
 #define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_3V3
 
 /*------------------------------------------------------------------*/
