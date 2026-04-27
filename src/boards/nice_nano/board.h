@@ -37,9 +37,10 @@
 /*------------------------------------------------------------------*/
 /* BUTTON
  *------------------------------------------------------------------*/
-#define BUTTON_DFU    PINNUM(0, 6)
-#define BUTTON_DFU_OTA  PINNUM(0, 6)
-#define BUTTON_PULL   NRF_GPIO_PIN_PULLUP
+#define BUTTONS_NUMBER        2
+#define BUTTON_1              _PINNUM(0, 6)
+#define BUTTON_2              _PINNUM(0, 6)
+#define BUTTON_PULL           NRF_GPIO_PIN_PULLUP
 
 //--------------------------------------------------------------------+
 // BLE OTA
