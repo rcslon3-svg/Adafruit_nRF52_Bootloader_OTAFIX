@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        board: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
+        board: [nice_nano]
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
