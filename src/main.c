@@ -174,6 +174,15 @@ int main(void) {
    gpregret_global = NRF_POWER->GPREGRET;
   BOOTLOADER_VERSION_REGISTER = (MK_BOOTLOADER_VERSION);
  
+  // Мигнуть gpregret_global & 0x0F раз
+nrf_gpio_cfg_output(LED_PRIMARY_PIN);
+for(uint8_t i = 0; i < (gpregret_global & 0x0F); i++) {
+    nrf_gpio_pin_write(LED_PRIMARY_PIN, LED_STATE_ON);
+    NRFX_DELAY_MS(200);
+    nrf_gpio_pin_write(LED_PRIMARY_PIN, 1 - LED_STATE_ON);
+    NRFX_DELAY_MS(200);
+}
+NRFX_DELAY_MS(1000);
 
   board_init();
   bootloader_init();
