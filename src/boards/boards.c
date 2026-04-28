@@ -85,7 +85,7 @@ void board_init(void) {
   led_pwm_init(LED_SECONDARY, LED_SECONDARY_PIN);
   #endif
 #endif
-
+ led_state (STATE_BLE_DISCONNECTED);
  NRFX_DELAY_MS(100);
 
 #if defined(LED_NEOPIXEL) || defined(LED_RGB_RED_PIN) || defined(LED_APA102_CLK)
@@ -136,7 +136,7 @@ void board_init(void) {
   NVIC_SetPriority(SysTick_IRQn, 7);
   SysTick_Config(SystemCoreClock / 1000);
 
-  led_pwm_duty_cycle(LED_PRIMARY, 254) ;
+  led_state (STATE_WRITING_STARTED);
   NRFX_DELAY_MS(100);
 
 }
