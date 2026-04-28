@@ -27,7 +27,7 @@
 
 #define _PINNUM(port, pin)    ((port)*32 + (pin))
 
-#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_3V3
+//#define UICR_REGOUT0_VALUE UICR_REGOUT0_VOUT_3V3
 
 /*------------------------------------------------------------------*/
 /* LED

@@ -85,8 +85,8 @@ void board_init(void) {
   led_pwm_init(LED_SECONDARY, LED_SECONDARY_PIN);
   #endif
 #endif
- led_state (STATE_BLE_DISCONNECTED);
- NRFX_DELAY_MS(100);
+ //led_state (STATE_BLE_DISCONNECTED);
+ //NRFX_DELAY_MS(100);
 
 #if defined(LED_NEOPIXEL) || defined(LED_RGB_RED_PIN) || defined(LED_APA102_CLK)
   // use neopixel for use enumeration
@@ -136,8 +136,8 @@ void board_init(void) {
   NVIC_SetPriority(SysTick_IRQn, 7);
   SysTick_Config(SystemCoreClock / 1000);
 
-  led_state (STATE_WRITING_STARTED);
-  NRFX_DELAY_MS(100);
+ // led_state (STATE_WRITING_STARTED);
+ // NRFX_DELAY_MS(100);
 
 }
 
@@ -342,7 +342,7 @@ void led_pwm_init(uint32_t led_index, uint32_t led_pin) {
   pwm->DECODER = PWM_DECODER_LOAD_Individual;
   pwm->LOOP = 0;
 
-  pwm->SEQ[0].PTR = 128; //(uint32_t) (led_duty_cycles);
+  pwm->SEQ[0].PTR = (uint32_t) (led_duty_cycles);
   pwm->SEQ[0].CNT = 4; // default mode is Individual --> count must be 4
   pwm->SEQ[0].REFRESH = 0;
   pwm->SEQ[0].ENDDELAY = 0;

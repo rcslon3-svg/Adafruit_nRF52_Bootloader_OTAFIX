@@ -179,6 +179,7 @@ int main(void) {
   bootloader_init();
   PRINTF("Bootloader Start\r\n");
   led_state(STATE_BOOTLOADER_STARTED);
+  NRFX_DELAY_MS(100);
 
   // When updating SoftDevice, bootloader will reset before swapping SD
   if (bootloader_dfu_sd_in_progress()) {
