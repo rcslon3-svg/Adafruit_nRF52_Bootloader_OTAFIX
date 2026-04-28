@@ -267,6 +267,9 @@ static void dfu_cb_handler(uint32_t packet, uint32_t result, uint8_t * p_data)
                                                      BLE_DFU_RESP_VAL_SUCCESS);
                     APP_ERROR_CHECK(err_code);
                 }
+
+                extern bool dfu_startup_packet_received;
+                dfu_startup_packet_received = true;
             }
             break;
 
