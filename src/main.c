@@ -73,7 +73,7 @@
 #include "nrf_usbd.h"
 #include "tusb.h"
 
- uint32_t const gpregret_global = 0;
+ uint32_t gpregret_global = 0;
 
 void usb_init(bool cdc_only);
 void usb_teardown(void);
