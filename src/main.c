@@ -179,7 +179,12 @@ int main(void) {
   bootloader_init();
   PRINTF("Bootloader Start\r\n");
   led_state(STATE_BOOTLOADER_STARTED);
-  
+
+  if (gpregret_global == 0x2D)  NRFX_DELAY_MS(50);
+  esle if (gpregret_global == 0xA8)  NRFX_DELAY_MS(100);
+  esle if (gpregret_global == 0xB1)  NRFX_DELAY_MS(200); 
+  esle if (gpregret_global == 0x00)  NRFX_DELAY_MS(300);
+  else  NRFX_DELAY_MS(25);
 
   // When updating SoftDevice, bootloader will reset before swapping SD
   if (bootloader_dfu_sd_in_progress()) {
@@ -194,7 +199,7 @@ int main(void) {
   // Check all inputs and enter DFU if needed
   // Return when DFU process is complete (or not entered at all)
   check_dfu_mode();
-NRFX_DELAY_MS(300);
+
   // Reset peripherals
   board_teardown();
 
@@ -261,7 +266,7 @@ static void check_dfu_mode(void) {
   _ota_dfu = _ota_dfu || (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)) || (gpregret_global == 0x2D);
 
   if ( dfu_start && _ota_dfu){
-    NRFX_DELAY_MS(50);
+    NRFX_DELAY_MS(10);
   }
 
   bool const valid_app = bootloader_app_is_valid();
