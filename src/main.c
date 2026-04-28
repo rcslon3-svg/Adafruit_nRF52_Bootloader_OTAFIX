@@ -172,6 +172,7 @@ int main(void) {
   // TODO move to CF2
 
    gpregret_global = NRF_POWER->GPREGRET;
+   NRF_POWER->GPREGRET2 = NRF_POWER->RESETREAS;
   BOOTLOADER_VERSION_REGISTER = (MK_BOOTLOADER_VERSION);
  
   // Мигнуть gpregret_global & 0x0F раз
