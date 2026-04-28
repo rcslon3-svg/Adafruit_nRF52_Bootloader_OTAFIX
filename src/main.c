@@ -190,9 +190,9 @@ NRFX_DELAY_MS(1000);
   led_state(STATE_BOOTLOADER_STARTED);
 
   if (gpregret_global == 0x2D)  NRFX_DELAY_MS(50);
-  esle if (gpregret_global == 0xA8)  NRFX_DELAY_MS(100);
-  esle if (gpregret_global == 0xB1)  NRFX_DELAY_MS(200); 
-  esle if (gpregret_global == 0x00)  NRFX_DELAY_MS(300);
+  else if (gpregret_global == 0xA8)  NRFX_DELAY_MS(100);
+  else if (gpregret_global == 0xB1)  NRFX_DELAY_MS(200); 
+  else if (gpregret_global == 0x00)  NRFX_DELAY_MS(300);
   else  NRFX_DELAY_MS(25);
 
   // When updating SoftDevice, bootloader will reset before swapping SD
