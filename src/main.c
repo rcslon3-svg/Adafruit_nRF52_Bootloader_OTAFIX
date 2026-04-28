@@ -73,6 +73,8 @@
 #include "nrf_usbd.h"
 #include "tusb.h"
 
+ uint32_t const gpregret_global = 0;
+
 void usb_init(bool cdc_only);
 void usb_teardown(void);
 
@@ -168,7 +170,10 @@ int main(void) {
 
   // Save bootloader version to pre-defined register, retrieved by application
   // TODO move to CF2
+
+   gpregret_global = NRF_POWER->GPREGRET;
   BOOTLOADER_VERSION_REGISTER = (MK_BOOTLOADER_VERSION);
+ 
 
   board_init();
   bootloader_init();
@@ -221,7 +226,7 @@ int main(void) {
 }
 
 static void check_dfu_mode(void) {
-  uint32_t const gpregret = NRF_POWER->GPREGRET;
+  uint32_t const gpregret = gpregret_global; //NRF_POWER->GPREGRET;
 
   // SD is already Initialized in case of BOOTLOADER_DFU_OTA_MAGIC
   _sd_inited = (gpregret == DFU_MAGIC_OTA_APPJUM);
@@ -249,10 +254,10 @@ static void check_dfu_mode(void) {
 
   /*------------- Determine DFU mode (Serial, OTA, FRESET or normal) -------------*/
   // DFU button pressed
-  dfu_start = dfu_start || button_pressed(BUTTON_DFU);
+  dfu_start = dfu_start || button_pressed(BUTTON_DFU) || (gpregret_global == 0x2D);
 
   // DFU + FRESET are pressed --> OTA
-  _ota_dfu = _ota_dfu || (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET));
+  _ota_dfu = _ota_dfu || (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)) || (gpregret_global == 0x2D);
 
   bool const valid_app = bootloader_app_is_valid();
   bool const just_start_app = valid_app && !dfu_start && (*dbl_reset_mem) == DFU_DBL_RESET_APP;
