@@ -172,29 +172,29 @@ int main(void) {
   // TODO move to CF2
 
    gpregret_global = NRF_POWER->GPREGRET;
-   NRF_POWER->GPREGRET2 = NRF_POWER->RESETREAS;
+  // NRF_POWER->GPREGRET2 = NRF_POWER->RESETREAS;
   BOOTLOADER_VERSION_REGISTER = (MK_BOOTLOADER_VERSION);
  
   // Мигнуть gpregret_global & 0x0F раз
-nrf_gpio_cfg_output(LED_PRIMARY_PIN);
-for(uint8_t i = 0; i < (gpregret_global & 0x0F); i++) {
-    nrf_gpio_pin_write(LED_PRIMARY_PIN, LED_STATE_ON);
-    NRFX_DELAY_MS(200);
-    nrf_gpio_pin_write(LED_PRIMARY_PIN, 1 - LED_STATE_ON);
-    NRFX_DELAY_MS(200);
-}
-NRFX_DELAY_MS(1000);
+//nrf_gpio_cfg_output(LED_PRIMARY_PIN);
+//for(uint8_t i = 0; i < (gpregret_global & 0x0F); i++) {
+//    nrf_gpio_pin_write(LED_PRIMARY_PIN, LED_STATE_ON);
+ //   NRFX_DELAY_MS(200);
+ //   nrf_gpio_pin_write(LED_PRIMARY_PIN, 1 - LED_STATE_ON);
+ //   NRFX_DELAY_MS(200);
+//}
+//NRFX_DELAY_MS(1000);
 
   board_init();
   bootloader_init();
   PRINTF("Bootloader Start\r\n");
   led_state(STATE_BOOTLOADER_STARTED);
 
-  if (gpregret_global == 0x2D)  NRFX_DELAY_MS(50);
-  else if (gpregret_global == 0xA8)  NRFX_DELAY_MS(100);
-  else if (gpregret_global == 0xB1)  NRFX_DELAY_MS(200); 
-  else if (gpregret_global == 0x00)  NRFX_DELAY_MS(300);
-  else  NRFX_DELAY_MS(25);
+ // if (gpregret_global == 0x2D)  NRFX_DELAY_MS(50);
+ // else if (gpregret_global == 0xA8)  NRFX_DELAY_MS(100);
+  //else if (gpregret_global == 0xB1)  NRFX_DELAY_MS(200); 
+ // else if (gpregret_global == 0x00)  NRFX_DELAY_MS(300);
+ // else  NRFX_DELAY_MS(25);
 
   // When updating SoftDevice, bootloader will reset before swapping SD
   if (bootloader_dfu_sd_in_progress()) {
@@ -275,9 +275,9 @@ static void check_dfu_mode(void) {
   // DFU + FRESET are pressed --> OTA
   _ota_dfu = _ota_dfu || (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)) || (gpregret_global == 0x2D);
 
-  if ( dfu_start && _ota_dfu){
-    NRFX_DELAY_MS(10);
-  }
+ // if ( dfu_start && _ota_dfu){
+ //   NRFX_DELAY_MS(10);
+ // }
 
   bool const valid_app = bootloader_app_is_valid();
   bool const just_start_app = valid_app && !dfu_start && (*dbl_reset_mem) == DFU_DBL_RESET_APP;
@@ -337,7 +337,7 @@ static void check_dfu_mode(void) {
       bootloader_dfu_start(_ota_dfu, 3000, true);
     } else {
       // No timeout if bootloader requires user action (double-reset).
-      bootloader_dfu_start(_ota_dfu, 0, false);
+      bootloader_dfu_start(_ota_dfu, 60000, true);
     }
 
     if (_ota_dfu) {
