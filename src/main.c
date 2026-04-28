@@ -337,7 +337,7 @@ static void check_dfu_mode(void) {
       bootloader_dfu_start(_ota_dfu, 3000, true);
     } else {
       // No timeout if bootloader requires user action (double-reset).
-      bootloader_dfu_start(_ota_dfu, 60000, true);
+      bootloader_dfu_start(_ota_dfu, 60000, false);
     }
 
     if (_ota_dfu) {
