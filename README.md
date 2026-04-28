@@ -1,4 +1,30 @@
-# Adafruit nRF52 Bootloader with Enhanced OTA DFU
+# Adafruit nRF52 Bootloader with Enhanced OTA DFU for motorcycle keyless [www.smartmoto.asia](https://www.smartmoto.asia)
+
+This is a fork of a pretty good bootloader. I have modified it for use with the nice!nano board.
+
+It is very effective for keyless motorcycle start systems [(www.smartmoto.asia)](https://www.smartmoto.asia) and for use in self-cancel turn signals [(www.smartmoto.asia)](https://www.smartmoto.asia/products).
+
+What has been changed:
+
+Enter boot mode when the P0.06 pin is low.
+
+60-second timeout for BLE updates.
+
+BLE device name: EasyRide 30
+
+Added magic byte 0x2D; it works the same as 0xA8.
+
+Peculiarity of my nice!nano board:
+The NRF_POWER->GPREGRET register is NOT preserved during NVIC_SystemReset(); and resets to 0 if the board does not have USB connected.
+I tried all available methods to write to this register and perform a reset. Nothing helped.
+
+The working solution I found to enter boot mode is:
+
+
+sd_power_gpregret_set(0, 0xA8);
+// configure SENSE to the current state of any stable pin; in my case, it is logic high
+nrf_gpio_cfg_sense_input(6, NRF_GPIO_PIN_PULLUP, NRF_GPIO_PIN_SENSE_HIGH);
+NRF_POWER->SYSTEMOFF = 1;
 
 ## Changes in OTAFIX 2.2
 
@@ -189,3 +215,5 @@ If the file shows: "Board-ID: nRF52840-SeeedXiaoSense-v1" then you must install 
 This version of the RAK4631 bootloader is based on a much newer version (0.9.2) of the Adafruit nRF52 bootloader than what RAK Wireless uses on their official bootloader (0.6.2-11).  
 
 I haven't looked to see what changes (if any) that RAK made to the Adafruit bootloader, so I'm not sure if there's any difference but I have tested this bootloader and I haven't found any problems thus far. If you would rather use the original RAK bootloader but with these patches included you can find that [here](https://github.com/oltaco/WisCore_RAK4631_Bootloader/releases).
+
+Sergei. https://www.smartmoto.asia - keyless and self-cancelling turn signal for motorcycles
