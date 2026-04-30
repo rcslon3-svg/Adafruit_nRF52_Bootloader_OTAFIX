@@ -273,11 +273,11 @@ static void check_dfu_mode(void) {
   bool buttons = false;
 
   if (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)){
-    nrf_delay_ms(50);
+    NRFX_DELAY_MS(50);
     if (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)){   
-      nrf_delay_ms(50);
+      NRFX_DELAY_MS(50);
       if (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)){   
-        nrf_delay_ms(50);
+        NRFX_DELAY_MS(50);
         if (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)){            
             buttons = true;
         }
