@@ -269,11 +269,29 @@ static void check_dfu_mode(void) {
   if (dfu_skip) return;
 
   /*------------- Determine DFU mode (Serial, OTA, FRESET or normal) -------------*/
+
+  bool buttons = false;
+
+  if (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)){
+    nrf_delay_ms(50);
+    if (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)){   
+      nrf_delay_ms(50);
+      if (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)){   
+        nrf_delay_ms(50);
+        if (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)){            
+            buttons = true;
+        }
+      }
+    }
+  }
+
   // DFU button pressed
-  dfu_start = dfu_start || button_pressed(BUTTON_DFU) || (gpregret_global == 0x2D);
+  //dfu_start = dfu_start || button_pressed(BUTTON_DFU) || (gpregret_global == 0x2D);
+   dfu_start = dfu_start || buttons || (gpregret_global == 0x2D);
 
   // DFU + FRESET are pressed --> OTA
-  _ota_dfu = _ota_dfu || (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)) || (gpregret_global == 0x2D);
+  //_ota_dfu = _ota_dfu || (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET)) || (gpregret_global == 0x2D);
+   _ota_dfu = _ota_dfu || buttons || (gpregret_global == 0x2D);
 
  // if ( dfu_start && _ota_dfu){
  //   NRFX_DELAY_MS(10);
