@@ -50,7 +50,7 @@
 #define BLEDIS_MANUFACTURER "SmartMoto.Asia"
 #define BLEDIS_MODEL        "EasyRide"
 
-#define DEVICE_NAME          "EasyRide30 DFU"
+#define DEVICE_NAME          "EasyRide31 DFU"
 
 //--------------------------------------------------------------------+
 // USB
